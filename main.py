@@ -64,9 +64,8 @@ while True:
 
     # Verifica Qual Tecla Foi Pressionada Caso Seja Esc(27) Ele Cai Fora
     k = cv2.waitKey(30) & 0xff
-
     if k == ord('s'):
-        cv2.imwrite('img/image-' + strftime("%Y-%m-%d %H:%M:%S") + '.jpg', img)
+        cv2.imwrite('img/image-' + strftime("%Y-%m-%d %H.%M.%S") + '.jpg', img)
     elif k == 27:
         break
 
