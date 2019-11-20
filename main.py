@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+from time import gmtime, strftime
 
 # HairCascade
 faceCascade = cv2.CascadeClassifier(
@@ -63,7 +64,10 @@ while True:
 
     # Verifica Qual Tecla Foi Pressionada Caso Seja Esc(27) Ele Cai Fora
     k = cv2.waitKey(30) & 0xff
-    if k == 27:  # press 'ESC' to quit
+
+    if k == ord('s'):
+        cv2.imwrite('img/image-' + strftime("%Y-%m-%d %H:%M:%S") + '.jpg', img)
+    elif k == 27:
         break
 
 cap.release()
