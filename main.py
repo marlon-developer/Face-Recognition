@@ -19,7 +19,7 @@ if video:
 else:
     vid = 0
 
-cap = cv2.VideoCapture(vid)
+cap = cv2.VideoCapture(vid) 
 
 cap.set(3, 1920)  # set Width
 cap.set(4, 1080)  # set Heightt
