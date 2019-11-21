@@ -8,16 +8,27 @@ faceCascade = cv2.CascadeClassifier(
 eyeCascade = cv2.CascadeClassifier('cascade/haarcascade_eye.xml')
 smileCascade = cv2.CascadeClassifier('cascade/haarcascade_smile.xml')
 
-cap = cv2.VideoCapture(0)
+video = input("Nome do Video: ")
+
+str0 = "video/"
+str1 = video
+str2 = ".mp4"
+
+if video: 
+    vid = str0 + str1 + str2
+else:
+    vid = 0
+
+cap = cv2.VideoCapture(vid)
 
 cap.set(3, 1920)  # set Width
 cap.set(4, 1080)  # set Heightt
 
 # Loop para Dar Continuidade a Imagem
 while True:
-    ret, img = cap.read()
-    img = cv2.flip(img, 1)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    ret, frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Detecta Face
     faces = faceCascade.detectMultiScale(
@@ -29,9 +40,9 @@ while True:
 
     # Mostra Face
     for (x, y, w, h) in faces:
-        cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
         roi_gray = gray[y:y+h, x:x+w]
-        roi_color = img[y:y+h, x:x+w]
+        roi_color = frame[y:y+h, x:x+w]
 
         # Detecta Olhos
         eyes = eyeCascade.detectMultiScale(
@@ -60,12 +71,12 @@ while True:
                           (xx + ww, yy + hh), (0, 255, 0), 2)
 
         # Mostra Video
-        cv2.imshow('video', img)
+        cv2.imshow("Recognize With OpenCV", frame)
 
     # Verifica Qual Tecla Foi Pressionada Caso Seja Esc(27) Ele Cai Fora
     k = cv2.waitKey(30) & 0xff
     if k == ord('s'):
-        cv2.imwrite('img/image-' + strftime("%Y-%m-%d %H.%M.%S") + '.jpg', img)
+        cv2.imwrite('img/image-' + strftime("%Y-%m-%d %H.%M.%S") + '.jpg', frame)
     elif k == 27:
         break
 
